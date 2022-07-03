@@ -10,8 +10,9 @@ namespace EmployeeManagementSystem.Models
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        public string EmployeeName { get; set; }
         public string PositionId { get; set; }
+        public string PositionName { get; set; }
         public Position Position { get; set; }
     }
 

@@ -36,5 +36,6 @@ namespace EmployeeManagement.Web.Models.Data
         public DbSet<EmployeeJobHistory> EmployeeJobHistorys { get; set; }
         public DbSet<Position> Position { get; set; }
         public DbSet<EmployeeManagementSystem.Models.PositionViewModel>? PositionViewModel { get; set; }
+        public DbSet<EmployeeManagementSystem.Models.EmployeeJobHistoryViewModel>? EmployeeJobHistoryViewModel { get; set; }
     }
 }

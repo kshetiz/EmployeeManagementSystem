@@ -17,16 +17,13 @@
             <thead>
                 <tr>
                     
-                    <th>EmployeeId</th>
+                    <th>Employee Name</th>
                     <th>Salary</th>
                     <th>Start date</th>
-                    <th>End date</th>
-                    <th>Employee Code</th>
-                    <th>Is Disabled</th>
-                    <th>Person Id</th>
-                    <th>Position Id</th>
+                    <th>Position</th>
                     <th>Email</th>
-                    <th></th>
+                    <th>Action</th>
+                
                 </tr>
 
             </thead>
@@ -53,20 +50,16 @@
                    "searchable": false
            }],
            "columns": [
-               { "data": "employeeId", "name": "EmployeeId", "autoWidth": true },
+               { "data": "firstName", "name": "FirstName", "autoWidth": true },
                { "data": "salary", "name": "Salary", "autoWidth": true },
                { "data": "startDate", "name": "StratDate", "autoWidth": true },
-               { "data": "endDate", "name": "EndDate", "autoWidth": true },
-               { "data": "employeeCode", "name": "EmployeeCode", "autoWidth": true },
-               { "data": "isDisabled", "name": "IsDisabled", "autoWidth": true },
-               { "data": "personId", "name": "PersonId", "autoWidth": true },
-               { "data": "positionId", "name": "PositionId", "autoWidth": true },
+               { "data": "positionName", "name": "PositionName", "autoWidth": true },
                { "data": "email", "name": "Email", "autoWidth": true },
 
                {
                "data":"employeeId", "render": function (data) 
                 { console.log(data);
-                    return "<a class='btn btn-primary'>Edit</a><a href='Delete/"+data+"' class='btn btn-danger'>Delete</a><a href='#' class='btn btn-primary'>EmployeeJobHistory</a>";   }
+                    return "<a  href='Edit/"+data+"' class='btn btn-primary'>Edit</a><a href='Delete/"+data+"' class='btn btn-danger'>Delete</a><a  href='Delete/"+data+"' class='btn btn-primary'>EmployeeJobHistory</a>";   }
             },
                
 

@@ -23,5 +23,6 @@ namespace EmployeeManagementSystem.Models
         public bool IsDisabled { get; set; } = false;
         public string PositionId { get; set; }
         public string EmployeeJobHistoryId { get; set; }
+        public string PositionName { get; set; }
     }
 }

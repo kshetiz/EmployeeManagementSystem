@@ -17,41 +17,8 @@ namespace EmployeeManagementSystem.Controllers
         public IActionResult Index()
         {
            
-            var employee = from e in _context.Employees
-                           join p in _context.Peoples
-                           on e.PersonId equals p.PersonId
-                           select new EmployeeViewModel {
-                                FirstName=p.FirstName,
-                                LastName=p.LastName,
-                                Email = p.Email,
-                                EmployeeId = e.EmployeeId,
-                                PersonId = e.PersonId,
-                                PositionId = e.PositionId,
-                                Salary = e.Salary,
-                                StartDate = e.StartDate,
-                                EndDate = e.EndDate,
-                                EmployeeCode = e.EmployeeCode,
-                                IsDisabled = e.IsDisabled,
-                           };
-
-            var employeeToView = new List<EmployeeViewModel>();
-            foreach (var items in employee)
-            {
-                var emp = new EmployeeViewModel();
-                emp.FirstName = items.FirstName;
-                emp.LastName = items.LastName;
-                emp.EmployeeId = items.EmployeeId;
-                emp.PersonId = items.PersonId;
-                emp.PositionId = items.PositionId;
-                emp.Salary = items.Salary;
-                emp.StartDate = items.StartDate;
-                emp.EndDate = items.EndDate;
-                emp.EmployeeCode = items.EmployeeCode;
-                emp.IsDisabled = items.IsDisabled;
-
-                employeeToView.Add(emp);
-            }
-            return View(employee);
+           
+            return View();
             
         }
 
@@ -122,18 +89,20 @@ namespace EmployeeManagementSystem.Controllers
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
                 int recordsTotal = 0;
-                var employeeData = from e in _context.Employees
-                                   from p in _context.Peoples
-                                   where e.PersonId == p.PersonId && e.IsDisabled==false
+                var employeeData = from e in _context.Employees.Where(x=> !x.IsDisabled)
+                                   join p in _context.Peoples on e.PersonId equals p.PersonId  
+                                   join per in _context.Position on e.PositionId equals per.PositionId
+                                   
                                    select new EmployeeViewModel
                                    {
+                                       FirstName=p.FirstName,
                                        Email = p.Email,
                                        EmployeeId = e.EmployeeId,
                                        PersonId = e.PersonId,
                                        PositionId = e.PositionId,
                                        Salary = e.Salary,
                                        StartDate = e.StartDate,
-                                       EndDate = e.EndDate,
+                                       PositionName=per.PositionName,
                                        EmployeeCode = e.EmployeeCode,
                                        IsDisabled = e.IsDisabled,
                                    }; 
@@ -157,6 +126,22 @@ namespace EmployeeManagementSystem.Controllers
                 throw;
             }
         }
+        [HttpGet("Edit/{ID}")]
+        public IActionResult Edit(string id)
+        {
+            var data = _context.Employees.SingleOrDefault(x=>x.EmployeeId == id);
+            var peop = _context.Peoples.FirstOrDefault(x => x.PersonId == data.PersonId);
+            var edt = new EmployeeViewModel();
+            edt.EmployeeId = data.EmployeeId;
+            edt.FirstName = peop.FirstName;
+            edt.LastName = peop.LastName;
+            edt.EmployeeCode = data.EmployeeCode;
+
+
+            return View(edt);
+        }
+        
+
         [HttpGet("Delete/{id}")]
         public IActionResult Delete(string id)
         {
