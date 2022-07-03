@@ -26,6 +26,7 @@
                     <th>Person Id</th>
                     <th>Position Id</th>
                     <th>Email</th>
+                    <th></th>
                 </tr>
 
             </thead>
@@ -38,12 +39,12 @@
 <script>
            $(document).ready(function () {
            $("#customerDatatable").DataTable({
-               "processing": true,
+               //"processing": true,
                "serverSide": true,
                "filter": true,
                "ajax": {
                    "url": "/employee/getall",
-                   "type": "POST",
+                   "type": "Post",
                    "datatype": "json"
                         },
                    "columnDefs": [{
@@ -53,18 +54,19 @@
            }],
            "columns": [
                { "data": "employeeId", "name": "EmployeeId", "autoWidth": true },
-               { "data": "Salary", "name": "Salary", "autoWidth": true },
+               { "data": "salary", "name": "Salary", "autoWidth": true },
                { "data": "startDate", "name": "StratDate", "autoWidth": true },
                { "data": "endDate", "name": "EndDate", "autoWidth": true },
                { "data": "employeeCode", "name": "EmployeeCode", "autoWidth": true },
                { "data": "isDisabled", "name": "IsDisabled", "autoWidth": true },
                { "data": "personId", "name": "PersonId", "autoWidth": true },
                { "data": "positionId", "name": "PositionId", "autoWidth": true },
-               { "data": "Email", "name": "Email", "autoWidth": true },
+               { "data": "email", "name": "Email", "autoWidth": true },
 
                {
-                "render": function () 
-                { return "<a href='#' class='btn btn-primary'>Edit</a><a href='Delete/' class='btn btn-danger'>Delete</a><a href='#' class='btn btn-primary'>EmployeeJobHistory</a>";   }
+               "data":"employeeId", "render": function (data) 
+                { console.log(data);
+                    return "<a class='btn btn-primary'>Edit</a><a href='Delete/"+data+"' class='btn btn-danger'>Delete</a><a href='#' class='btn btn-primary'>EmployeeJobHistory</a>";   }
             },
                
 
